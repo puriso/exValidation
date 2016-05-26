@@ -263,11 +263,15 @@
         }
         if ( conf.scrollToErr ) {
           var reverseOffsetTop,
-            infoErr, errTop,
-            scrollTarget = $.support.boxModel
-              ? navigator.appName.indexOf("Opera") !== -1 ?
-                "html" : "html,body"
-              : "body";
+            infoErr, errTop,scrollTarget="html";
+
+          // COMMENT
+          // JQUERY v1.10.0で$.support.boxModelが廃止されたUAで判定
+          // IE9まで確認済み
+          if (window.navigator.userAgent.toLowerCase().indexOf('chrome') != -1) {
+              scrollTarget="body";
+          }
+          
           if ( !conf.customScrollAdjust ) {
             reverseOffsetTop = $(err[0]).offset().top;
             errTop = $(err[0]);
